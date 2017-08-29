@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Django web interface</title>
+  </head>
+  <body>
+    <h1>session manager</h1>
+    <form method="post" action="/account/login/">
+      {% csrf_token %}
+      <input name="username" type="text" placeholder="username"><br/>
+      <input name="password" type="text" placeholder="password"><br/>
+      {{ error }}<br/>
+      <button id="btn" type="submit">Login</button>
+    </form>
+  </body>
+</html>
