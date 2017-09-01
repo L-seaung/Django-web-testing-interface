@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from .models import Event
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -26,3 +27,10 @@ def event_manage(request):
     # username = request.COOKIES.get('user', '')
     username = request.session.get('user', '')
     return render(request, "event_manage.html", {'user': username})
+
+@login_required
+def search_name(request):
+    username = request.session.get('user', '')
+    search_name = request.GET.get("name", "")
+    event_list = Event.objects.filter(name__contains=search_name)
+    return render(request, "event_manage.html", {"user": username, "events": event_list})
